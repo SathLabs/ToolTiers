@@ -26,6 +26,7 @@ public class TTBlockTagsProvider extends BlockTagsProvider {
     @Override
     @SuppressWarnings("unchecked")
     protected void addTags(HolderLookup.Provider provider) {
+        
         this.tag(VanillaToolTiers.INDESTRUCTIBLE.tag())
                 .add(Blocks.BEDROCK)
                 .add(Blocks.COMMAND_BLOCK)

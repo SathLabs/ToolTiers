@@ -108,14 +108,14 @@ public class ConfigLoader {
                 if (field.isAnnotationPresent(ConfigVal.String.class)) {
                     if (obj == null) throw new NullPointerException("Config Field " + field.getName() + " is null");
                     if (!(obj instanceof String value)) throw new IllegalArgumentException("Config Field " + field.getName() + " is not a String");
-                    for (String comment : comments) builder.comment(" " + comment);
+                    comments.forEach(comment -> builder.comment(" " + comment));
                     builder.comment(" Default: " + value);
                     spec = builder.define(name, value);
                     
                 } else if (field.isAnnotationPresent(ConfigVal.Boolean.class)) {
                     if (obj == null) throw new NullPointerException("Config Field " + field.getName() + " is null");
                     if (!(obj instanceof Boolean value)) throw new IllegalArgumentException("Config Field " + field.getName() + " is not a Boolean");
-                    for (String comment : comments) builder.comment(" " + comment);
+                    comments.forEach(comment -> builder.comment(" " + comment));
                     builder.comment(" Default: " + value);
                     spec = builder.define(name, (boolean) value); //Thank you neo
                     
@@ -123,28 +123,28 @@ public class ConfigLoader {
                     ConfigVal.Integer entry = field.getAnnotation(ConfigVal.Integer.class);
                     if (obj == null) throw new NullPointerException("Config Field " + field.getName() + " is null");
                     if (!(obj instanceof Integer value)) throw new IllegalArgumentException("Config Field " + field.getName() + " is not an Integer");
-                    for (String comment : comments) builder.comment(" " + comment);
+                    comments.forEach(comment -> builder.comment(" " + comment));
                     spec = builder.defineInRange(name, value, entry.min(), entry.max());
                     
                 } else if (field.isAnnotationPresent(ConfigVal.Long.class)) {
                     ConfigVal.Long entry = field.getAnnotation(ConfigVal.Long.class);
                     if (obj == null) throw new NullPointerException("Config Field " + field.getName() + " is null");
                     if (!(obj instanceof Long value)) throw new IllegalArgumentException("Config Field " + field.getName() + " is not a Long");
-                    for (String comment : comments) builder.comment(" " + comment);
+                    comments.forEach(comment -> builder.comment(" " + comment));
                     spec = builder.defineInRange(name, value, entry.min(), entry.max());
                     
                 } else if (field.isAnnotationPresent(ConfigVal.Double.class)) {
                     ConfigVal.Double entry = field.getAnnotation(ConfigVal.Double.class);
                     if (obj == null) throw new NullPointerException("Config Field " + field.getName() + " is null");
                     if (!(obj instanceof Double value)) throw new IllegalArgumentException("Config Field " + field.getName() + " is not a Double");
-                    for (String comment : comments) builder.comment(" " + comment);
+                    comments.forEach(comment -> builder.comment(" " + comment));
                     spec = builder.defineInRange(name, value, entry.min(), entry.max());
                     
                 } else if (field.isAnnotationPresent(ConfigVal.Enum.class)) {
                     ConfigVal.Enum entry = field.getAnnotation(ConfigVal.Enum.class);
                     if (obj == null) throw new NullPointerException("Config Field " + field.getName() + " is null");
                     if (!(obj instanceof ConfigEnum value)) throw new IllegalArgumentException("Config Field " + field.getName() + " is not a Config Enum");
-                    for (String comment : comments) builder.comment(" " + comment);
+                    comments.forEach(comment -> builder.comment(" " + comment));
                     builder.comment(" Default: " + obj);
                     Arrays.stream(entry.value().getEnumConstants()).forEach(e -> {
                         ConfigEnum cfg = (ConfigEnum) e;

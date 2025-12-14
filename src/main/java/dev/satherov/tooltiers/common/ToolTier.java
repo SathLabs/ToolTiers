@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 import dev.satherov.tooltiers.ToolTiers;
 import dev.satherov.tooltiers.client.TTLanguage;
 import dev.satherov.tooltiers.config.TTConfig;
-import dev.satherov.tooltiers.core.DataRegistry;
+import dev.satherov.tooltiers.core.DataHolder;
 import dev.satherov.tooltiers.util.StringUtil;
 
 import net.minecraft.ChatFormatting;
@@ -91,10 +91,15 @@ public class ToolTier implements Comparable<ToolTier> {
     }
     
     public static ToolTier fromState(BlockState state) {
+        if (state.is(VanillaToolTiers.INDESTRUCTIBLE.tag())) return VanillaToolTiers.INDESTRUCTIBLE;
         if (state.isAir() || !state.requiresCorrectToolForDrops()) return VanillaToolTiers.HAND;
-        LinkedList<ToolTier> tiers = new LinkedList<>(DataRegistry.data().values());
+        
+        LinkedList<ToolTier> tiers = new LinkedList<>(DataHolder.values());
         Collections.sort(tiers);
+        Collections.reverse(tiers);
+        
         for (ToolTier tier : tiers) if (state.is(tier.tag())) return tier;
+        
         return VanillaToolTiers.MISSING;
     }
 

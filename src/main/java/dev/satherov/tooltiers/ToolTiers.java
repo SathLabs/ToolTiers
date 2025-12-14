@@ -4,16 +4,19 @@ import lombok.Getter;
 
 import dev.satherov.tooltiers.common.ToolTier;
 import dev.satherov.tooltiers.common.VanillaToolTiers;
+import dev.satherov.tooltiers.compat.kubejs.TTEvents;
 import dev.satherov.tooltiers.config.TTConfig;
-import dev.satherov.tooltiers.core.DataRegistry;
+import dev.satherov.tooltiers.core.DataHolder;
 import dev.satherov.tooltiers.config.ConfigLoader;
 
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.fml.javafmlmod.FMLModContainer;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -77,17 +80,17 @@ public class ToolTiers {
     }
     
     @SubscribeEvent
-    private static void onCommonSetup(final FMLLoadCompleteEvent event) {
-        DataRegistry.put(VanillaToolTiers.MISSING);
-        DataRegistry.put(VanillaToolTiers.INDESTRUCTIBLE);
-        DataRegistry.put(VanillaToolTiers.HAND);
-        DataRegistry.put(VanillaToolTiers.WOOD);
-        DataRegistry.put(VanillaToolTiers.STONE);
-        DataRegistry.put(VanillaToolTiers.IRON);
-        DataRegistry.put(VanillaToolTiers.GOLD);
-        DataRegistry.put(VanillaToolTiers.DIAMOND);
-        DataRegistry.put(VanillaToolTiers.NETHERITE);
-        DataRegistry.load();
+    private static void onCommonSetup(final FMLCommonSetupEvent event) {
+        DataHolder.put(VanillaToolTiers.MISSING);
+        DataHolder.put(VanillaToolTiers.INDESTRUCTIBLE);
+        DataHolder.put(VanillaToolTiers.HAND);
+        DataHolder.put(VanillaToolTiers.WOOD);
+        DataHolder.put(VanillaToolTiers.STONE);
+        DataHolder.put(VanillaToolTiers.IRON);
+        DataHolder.put(VanillaToolTiers.GOLD);
+        DataHolder.put(VanillaToolTiers.DIAMOND);
+        DataHolder.put(VanillaToolTiers.NETHERITE);
+        if (ModList.get().isLoaded("kubejs")) TTEvents.dispatchRegister();
     }
     
     public static ResourceLocation loc(String path) {

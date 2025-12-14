@@ -1,6 +1,6 @@
 package dev.satherov.tooltiers.core.mixin;
 
-import dev.satherov.tooltiers.core.DataRegistry;
+import dev.satherov.tooltiers.core.DataHolder;
 
 import net.minecraft.client.resources.language.ClientLanguage;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -30,7 +30,7 @@ public class ClientLanguageMixin {
             )
     )
     private static void loadTranslations(ResourceManager resourceManager, List<String> filenames, boolean defaultRightToLeft, CallbackInfoReturnable<ClientLanguage> cir, @Local(name = "map") Map<String, String> map) {
-        DataRegistry.data().values().forEach(data -> {
+        DataHolder.values().forEach(data -> {
             if (!map.containsKey(data.key())) map.put(data.key(), data.translation());
         });
     }

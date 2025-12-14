@@ -1,1 +1,1 @@
-dev.satherov.tooltiers.compat.kubejs.ATMPlugin
+dev.satherov.tooltiers.compat.kubejs.ToolTiersKubeJsPlugin

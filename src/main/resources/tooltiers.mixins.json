@@ -3,6 +3,7 @@
   "package": "dev.satherov.tooltiers.core.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "TierMixin"
   ],
   "injectors": {
     "defaultRequire": 1

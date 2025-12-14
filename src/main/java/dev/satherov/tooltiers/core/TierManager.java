@@ -59,7 +59,7 @@ public class TierManager {
         TOOLS.put(Items.NETHERITE_PICKAXE, VanillaToolTiers.NETHERITE);
         TOOLS.put(Items.NETHERITE_SWORD, VanillaToolTiers.NETHERITE);
         
-        if (ModList.get().isLoaded("kubejs")) TTEvents.dispatch();
+        if (ModList.get().isLoaded("kubejs")) TTEvents.dispatchItems();
         
         event.getAllItems().forEach(item -> { 
             ToolTier tier = TOOLS.getOrDefault(item, VanillaToolTiers.MISSING);
