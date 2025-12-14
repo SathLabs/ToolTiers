@@ -16,7 +16,7 @@ public class ToolTiers {
     public static final String MOD_ID = "tooltiers";
     private static @Getter ToolTiers instance;
     private final @Getter ConfigLoader config = new ConfigLoader();
-
+    
     public ToolTiers(IEventBus bus, FMLModContainer container) {
         if (ToolTiers.instance != null) throw new IllegalStateException("ToolTiers is already initialized!");
         instance = this;

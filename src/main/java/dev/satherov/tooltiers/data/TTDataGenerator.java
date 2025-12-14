@@ -1,9 +1,9 @@
 package dev.satherov.tooltiers.data;
 
+import dev.satherov.tooltiers.ToolTiers;
 import dev.satherov.tooltiers.data.provider.TTLocaleProvider;
 import dev.satherov.tooltiers.data.provider.tag.TTBlockTagsProvider;
 import dev.satherov.tooltiers.data.provider.tag.TTItemTagsProvider;
-import dev.satherov.tooltiers.ToolTiers;
 
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

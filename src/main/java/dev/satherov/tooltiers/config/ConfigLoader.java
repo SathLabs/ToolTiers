@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import dev.satherov.tooltiers.ToolTiers;
 import dev.satherov.tooltiers.config.annotation.Config;
 import dev.satherov.tooltiers.config.annotation.ConfigVal;
-import dev.satherov.tooltiers.ToolTiers;
 
 import net.neoforged.fml.config.IConfigSpec;
 import net.neoforged.fml.config.ModConfig;
@@ -59,7 +59,7 @@ public class ConfigLoader {
                 this.caches.add(cache);
                 
                 container.registerConfig(type, spec, ToolTiers.MOD_ID + "/" + ToolTiers.MOD_ID + "-" + type.extension() + ".toml");
-                ConfigLoader.log.info("Registered config of type {} for class {} at {}", type, clazz,  ToolTiers.MOD_ID + "/" + ToolTiers.MOD_ID + "-" + type.extension() + ".toml");
+                ConfigLoader.log.info("Registered config of type {} for class {} at {}", type, clazz, ToolTiers.MOD_ID + "/" + ToolTiers.MOD_ID + "-" + type.extension() + ".toml");
             });
         });
     }
@@ -95,7 +95,7 @@ public class ConfigLoader {
             if (!field.isAnnotationPresent(ConfigVal.class)) continue;
             ConfigVal val = field.getAnnotation(ConfigVal.class);
             String name = !val.name().isBlank() ? val.name() : ConfigLoader.pretty(field.getName());
-            String[] comments = val.comment().contains("\\R") ? val.comment().split("\\R") : new String[]{val.comment()};
+            String[] comments = val.comment().contains("\\R") ? val.comment().split("\\R") : new String[]{ val.comment() };
             
             try {
                 field.setAccessible(true);

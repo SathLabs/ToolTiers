@@ -1,7 +1,7 @@
 package dev.satherov.tooltiers.data.provider.tag;
 
-import dev.satherov.tooltiers.core.annotations.NothingNull;
 import dev.satherov.tooltiers.ToolTiers;
+import dev.satherov.tooltiers.core.annotations.NothingNull;
 
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
