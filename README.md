@@ -68,3 +68,29 @@ ServerEvents.tags('block', event => {
   event.remove('tooltiers:requires/diamond', 'minecraft:netherite_block')
 })
 ```
+
+### Debug info
+
+You can use the following command to make it easier to find missing tiers
+
+```js
+/**
+ * Creates a two files with all items and blocks and their respective tier assignment
+ */
+/tooltiers dump tiers
+
+/**
+ * Creates a two files with all items and blocks which do not have a tier assignment
+ */
+/tooltiers dump tiers missing_only
+
+/**
+ * Creates a files with all  blocks and the best attempt at showing their vanilla tier assignment
+ */
+/tooltiers dump vanilla
+
+/**
+ * Creates a files with all blocks which do not already have a tier assignment and the best attempt at showing their vanilla tier assignment
+ */
+/tooltiers dump vanilla missing_only
+```
