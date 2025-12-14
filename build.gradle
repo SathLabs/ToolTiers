@@ -111,6 +111,8 @@ dependencies {
 
     implementation(interfaceInjectionData("dev.latvian.mods:kubejs-neoforge:${kubejs}"))
     implementation("dev.latvian.mods:rhino:${rhino}")
+
+    implementation "maven.modrinth:jade:${jade}+neoforge"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

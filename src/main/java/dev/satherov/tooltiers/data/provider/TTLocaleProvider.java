@@ -1,6 +1,7 @@
 package dev.satherov.tooltiers.data.provider;
 
 import dev.satherov.tooltiers.ToolTiers;
+import dev.satherov.tooltiers.client.TTLanguage;
 
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
@@ -15,5 +16,6 @@ public class TTLocaleProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         ToolTiers.getInstance().getConfig().translate(this::add);
+        TTLanguage.translate(this::add);
     }
 }

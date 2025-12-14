@@ -1,13 +1,18 @@
 package dev.satherov.tooltiers.data.provider.tag;
 
 import dev.satherov.tooltiers.ToolTiers;
+import dev.satherov.tooltiers.common.VanillaToolTiers;
 import dev.satherov.tooltiers.core.annotations.NothingNull;
 
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -19,7 +24,69 @@ public class TTBlockTagsProvider extends BlockTagsProvider {
     }
     
     @Override
+    @SuppressWarnings("unchecked")
     protected void addTags(HolderLookup.Provider provider) {
+        this.tag(VanillaToolTiers.INDESTRUCTIBLE.tag())
+                .add(Blocks.BEDROCK)
+                .add(Blocks.COMMAND_BLOCK)
+                .add(Blocks.CHAIN_COMMAND_BLOCK)
+                .add(Blocks.REPEATING_COMMAND_BLOCK)
+                .add(Blocks.BARRIER)
+                .add(Blocks.STRUCTURE_BLOCK)
+                .add(Blocks.STRUCTURE_VOID)
+                .add(Blocks.JIGSAW)
+                .add(Blocks.DRAGON_EGG)
+                .add(Blocks.END_GATEWAY)
+                .add(Blocks.END_PORTAL)
+                .add(Blocks.END_PORTAL_FRAME)
+                .add(Blocks.NETHER_PORTAL)
+                .add(Blocks.MOVING_PISTON)
+                .add(Blocks.REINFORCED_DEEPSLATE)
+                .add(Blocks.TRIAL_SPAWNER)
+                .add(Blocks.VAULT)
+        ;
         
+        this.tag(VanillaToolTiers.HAND.tag())
+                .add(Blocks.COBWEB);
+        
+        this.tag(VanillaToolTiers.WOOD.tag())
+                .addTags(BlockTags.STONE_BUTTONS)
+                .addTags(BlockTags.STONE_BRICKS)
+                .addTags(BlockTags.STONE_PRESSURE_PLATES)
+                .addTags(Tags.Blocks.COBBLESTONES)
+                .addTags(BlockTags.BASE_STONE_OVERWORLD)
+                .addTags(BlockTags.BASE_STONE_NETHER)
+                .addTags(BlockTags.CORAL_BLOCKS)
+                .addTags(Tags.Blocks.ORES_COAL)
+                .addTags(Tags.Blocks.STORAGE_BLOCKS_COAL)
+                .addTags(BlockTags.ANVIL)
+                .addOptionalTag(Tags.Blocks.NEEDS_WOOD_TOOL)
+        ;
+        
+        BuiltInRegistries.BLOCK.iterator().forEachRemaining(block -> {
+            if (block.defaultBlockState().requiresCorrectToolForDrops()) {
+                tag(VanillaToolTiers.WOOD.tag()).add(block);
+            }
+        });
+        
+        this.tag(VanillaToolTiers.STONE.tag())
+                .addOptionalTag(BlockTags.NEEDS_STONE_TOOL)
+        ;
+        
+        this.tag(VanillaToolTiers.IRON.tag())
+                .addOptionalTag(BlockTags.NEEDS_IRON_TOOL)
+        ;
+        
+        this.tag(VanillaToolTiers.GOLD.tag())
+                .addOptionalTag(Tags.Blocks.NEEDS_GOLD_TOOL)
+        ;
+        
+        this.tag(VanillaToolTiers.DIAMOND.tag())
+                .addOptionalTag(BlockTags.NEEDS_DIAMOND_TOOL)
+        ;
+        
+        this.tag(VanillaToolTiers.NETHERITE.tag())
+                .addOptionalTag(Tags.Blocks.NEEDS_NETHERITE_TOOL)
+        ;
     }
 }

@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 
 import dev.satherov.tooltiers.ToolTiers;
 import dev.satherov.tooltiers.config.annotation.Config;
 import dev.satherov.tooltiers.config.annotation.ConfigVal;
+import dev.satherov.tooltiers.util.StringUtil;
 
 import net.neoforged.fml.config.IConfigSpec;
 import net.neoforged.fml.config.ModConfig;
@@ -19,9 +21,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.stream.Stream;
 
 @Slf4j
 public class ConfigLoader {
@@ -94,8 +96,8 @@ public class ConfigLoader {
         for (Field field : parent.getDeclaredFields()) {
             if (!field.isAnnotationPresent(ConfigVal.class)) continue;
             ConfigVal val = field.getAnnotation(ConfigVal.class);
-            String name = !val.name().isBlank() ? val.name() : ConfigLoader.pretty(field.getName());
-            String[] comments = val.comment().contains("\\R") ? val.comment().split("\\R") : new String[]{ val.comment() };
+            String name = !val.name().isBlank() ? val.name() : StringUtil.pretty(field.getName());
+            List<String> comments = (val.comment().contains("\\R") ? Stream.of(val.comment().split("\\R")) : Stream.of(val.comment())).filter(s -> !s.isBlank()).toList();
             
             try {
                 field.setAccessible(true);
@@ -174,17 +176,5 @@ public class ConfigLoader {
                 consumer.accept(ToolTiers.MOD_ID + ".configuration." + name, name);
             });
         });
-    }
-    
-    private static String pretty(String string) {
-        String result = string.toLowerCase(Locale.ROOT).trim();
-        result = result.replaceAll("_", " ");
-        result = result.replaceAll("\\.", " ");
-        String[] words = result.split(" ");
-        StringBuilder builder = new StringBuilder();
-        for (String word : words) {
-            builder.append(word.substring(0, 1).toUpperCase(Locale.ROOT)).append(word.substring(1)).append(" ");
-        }
-        return builder.toString().trim();
     }
 }
