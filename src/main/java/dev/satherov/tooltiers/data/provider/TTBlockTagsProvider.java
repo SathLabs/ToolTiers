@@ -1,4 +1,4 @@
-package dev.satherov.tooltiers.data.provider.tag;
+package dev.satherov.tooltiers.data.provider;
 
 import dev.satherov.tooltiers.ToolTiers;
 import dev.satherov.tooltiers.common.VanillaToolTiers;
@@ -9,7 +9,6 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
@@ -51,6 +50,11 @@ public class TTBlockTagsProvider extends BlockTagsProvider {
                 .add(Blocks.COBWEB);
         
         this.tag(VanillaToolTiers.WOOD.tag())
+                .addTags(BlockTags.MINEABLE_WITH_PICKAXE)
+                .addTags(BlockTags.MINEABLE_WITH_AXE)
+                .addTags(BlockTags.MINEABLE_WITH_SHOVEL)
+                .addTags(BlockTags.MINEABLE_WITH_HOE)
+                .addTags(BlockTags.SWORD_EFFICIENT)
                 .addTags(BlockTags.STONE_BUTTONS)
                 .addTags(BlockTags.STONE_BRICKS)
                 .addTags(BlockTags.STONE_PRESSURE_PLATES)
@@ -63,12 +67,6 @@ public class TTBlockTagsProvider extends BlockTagsProvider {
                 .addTags(BlockTags.ANVIL)
                 .addOptionalTag(Tags.Blocks.NEEDS_WOOD_TOOL)
         ;
-        
-        BuiltInRegistries.BLOCK.iterator().forEachRemaining(block -> {
-            if (block.defaultBlockState().requiresCorrectToolForDrops()) {
-                tag(VanillaToolTiers.WOOD.tag()).add(block);
-            }
-        });
         
         this.tag(VanillaToolTiers.STONE.tag())
                 .addOptionalTag(BlockTags.NEEDS_STONE_TOOL)

@@ -1,7 +1,5 @@
 package dev.satherov.tooltiers.compat.kubejs;
 
-import lombok.extern.slf4j.Slf4j;
-
 import dev.satherov.tooltiers.common.ToolTier;
 import dev.satherov.tooltiers.core.TierManager;
 
@@ -23,7 +21,7 @@ public record ItemTiersEvent(ToolTier tier) implements KubeEvent {
             Registers an item to a tool tier
             """)
     public void add(Object... filters) {
-        this.resolve(tier,  filters);
+        this.resolve(tier, filters);
     }
     
     private void resolve(ToolTier tier, Object... filters) {

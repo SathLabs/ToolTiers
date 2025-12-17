@@ -5,9 +5,9 @@ import lombok.Getter;
 import dev.satherov.tooltiers.common.ToolTier;
 import dev.satherov.tooltiers.common.VanillaToolTiers;
 import dev.satherov.tooltiers.compat.kubejs.TTEvents;
+import dev.satherov.tooltiers.config.ConfigLoader;
 import dev.satherov.tooltiers.config.TTConfig;
 import dev.satherov.tooltiers.core.DataHolder;
-import dev.satherov.tooltiers.config.ConfigLoader;
 
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
@@ -17,7 +17,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.fml.javafmlmod.FMLModContainer;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -91,6 +90,7 @@ public class ToolTiers {
         DataHolder.put(VanillaToolTiers.DIAMOND);
         DataHolder.put(VanillaToolTiers.NETHERITE);
         if (ModList.get().isLoaded("kubejs")) TTEvents.dispatchRegister();
+        DataHolder.freeze();
     }
     
     public static ResourceLocation loc(String path) {

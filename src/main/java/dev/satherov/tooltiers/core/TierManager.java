@@ -61,9 +61,9 @@ public class TierManager {
         
         if (ModList.get().isLoaded("kubejs")) TTEvents.dispatchItems();
         
-        event.getAllItems().forEach(item -> { 
+        event.getAllItems().forEach(item -> {
             ToolTier tier = TOOLS.getOrDefault(item, VanillaToolTiers.MISSING);
-            if (tier.equals(VanillaToolTiers.MISSING) && !item.components().has(DataComponents.TOOL)) return ;
+            if (tier.equals(VanillaToolTiers.MISSING) && !item.components().has(DataComponents.TOOL)) return;
             event.modify(item, builder -> builder.set(ToolTiers.COMPONENT.get(), tier));
         });
         

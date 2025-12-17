@@ -15,14 +15,14 @@ public class TTConfig {
     public static class Client {
         
         @ConfigVal(name = "Display Missing Warning", comment = """
-               If set to false the warning about missing tiers will not be displayed
-               """)
+                If set to false the warning about missing tiers will not be displayed
+                """)
         @ConfigVal.Boolean
         private static @Getter boolean warning = true;
         
         @ConfigVal(name = "Tooltip Info", comment = """
-               If set to true the Tier of a block and tool will be shown in their tooltip
-               """)
+                If set to true the Tier of a block and tool will be shown in their tooltip
+                """)
         @ConfigVal.Boolean
         private static @Getter boolean tooltip = true;
     }
@@ -31,18 +31,24 @@ public class TTConfig {
     public static class Common {
         
         @ConfigVal(name = "Force Tier", comment = """
-               If set to true blocks will not be breakable if they do not have a tier assigned.
-               If set to false blocks will be breakable by anything if they dont have a tier assigned.
-               """)
+                If set to true blocks will not be breakable if they do not have a tier assigned.
+                If set to false blocks will be breakable by anything if they dont have a tier assigned.
+                """)
         @ConfigVal.Boolean
         private static @Getter boolean forced = true;
         
         
         @ConfigVal(name = "Equal Tier", comment = """
-               If set to true tools need to be above the tier of the block, or match exactly.
-               If set to false tools need to be above or at the same tier of the block.
-               """)
+                If set to true tools need to be above the tier of the block, or match exactly.
+                If set to false tools need to be above or at the same tier of the block.
+                """)
         @ConfigVal.Boolean
         private static @Getter boolean equal = true;
+        
+        @ConfigVal(name = "Lenient Matching", comment = """
+                If set to true, all blocks that have a tool assigned to them but no tier will automatically be assigned to the wooden tier
+                """)
+        @ConfigVal.Boolean
+        private static @Getter boolean lenient = true;
     }
 }

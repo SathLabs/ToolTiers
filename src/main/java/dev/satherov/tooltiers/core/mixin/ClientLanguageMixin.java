@@ -19,18 +19,18 @@ import java.util.Map;
 public class ClientLanguageMixin {
     
     /**
-     * We inject translations here directly to avoid having untranslated tiers, 
-     * but you can still overwrite the translations on a pack level if you chose to
+     * We inject translations here directly to avoid having untranslated tiers,
+     * but devs can still overwrite the translations on a pack level if they chose to
      */
     @Inject(
-            method = "loadFrom", 
+            method = "loadFrom",
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/google/common/collect/ImmutableMap;copyOf(Ljava/util/Map;)Lcom/google/common/collect/ImmutableMap;"
             )
     )
     private static void loadTranslations(ResourceManager resourceManager, List<String> filenames, boolean defaultRightToLeft, CallbackInfoReturnable<ClientLanguage> cir, @Local(name = "map") Map<String, String> map) {
-        DataHolder.values().forEach(data -> {
+        DataHolder.all().forEach(data -> {
             if (!map.containsKey(data.key())) map.put(data.key(), data.translation());
         });
     }

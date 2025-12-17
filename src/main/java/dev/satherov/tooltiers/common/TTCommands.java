@@ -1,6 +1,7 @@
 package dev.satherov.tooltiers.common;
 
 import dev.satherov.tooltiers.ToolTiers;
+import dev.satherov.tooltiers.core.DataHolder;
 
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -22,6 +23,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -52,25 +55,26 @@ public class TTCommands {
                 Commands.literal(ToolTiers.MOD_ID)
                         .then(Commands.literal("dump")
                                 .then(Commands.literal("tiers")
-                                        .then(Commands.literal("missing-only")
+                                        .then(Commands.argument("tier", StringArgumentType.word())
+                                                .suggests(TIER_SUGGESTER)
                                                 .executes(ctx -> {
-                                                    CompletableFuture.runAsync(() -> dumpToolTiers(ctx.getSource(), true));
+                                                    CompletableFuture.runAsync(() -> dumpToolTiers(ctx.getSource(), DataHolder.get(ToolTiers.loc(StringArgumentType.getString(ctx, "tier")))));
                                                     return 1;
                                                 })
                                         )
                                         .executes(ctx -> {
-                                            CompletableFuture.runAsync(() -> dumpToolTiers(ctx.getSource(), false));
+                                            CompletableFuture.runAsync(() -> dumpToolTiers(ctx.getSource(), null));
                                             return 1;
                                         })
                                 ).then(Commands.literal("vanilla")
                                         .then(Commands.literal("missing-only")
                                                 .executes(ctx -> {
-                                                    CompletableFuture.runAsync(() -> dumpVanillaTier(ctx.getSource(),  true));
+                                                    CompletableFuture.runAsync(() -> dumpVanillaTier(ctx.getSource(), true));
                                                     return 1;
                                                 })
                                         )
                                         .executes(ctx -> {
-                                            CompletableFuture.runAsync(() -> dumpVanillaTier(ctx.getSource(),  false));
+                                            CompletableFuture.runAsync(() -> dumpVanillaTier(ctx.getSource(), false));
                                             return 1;
                                         })
                                 )
@@ -78,13 +82,13 @@ public class TTCommands {
         );
     }
     
-    private static void dumpToolTiers(CommandSourceStack source, boolean missing_only) {
+    private static void dumpToolTiers(CommandSourceStack source, @Nullable ToolTier required) {
         source.sendSystemMessage(Component.literal("Dumping Tier entries..."));
         
         ConcurrentHashMap<ResourceLocation, ToolTier> blocks = new ConcurrentHashMap<>();
         BuiltInRegistries.BLOCK.iterator().forEachRemaining(block -> {
             ToolTier tier = ToolTier.fromState(block.defaultBlockState());
-            if (missing_only && !tier.equals(VanillaToolTiers.MISSING)) return;
+            if (required != null && !tier.equals(required)) return;
             blocks.put(BuiltInRegistries.BLOCK.getKey(block), tier);
         });
         
@@ -93,7 +97,9 @@ public class TTCommands {
         ConcurrentHashMap<ResourceLocation, ToolTier> items = new ConcurrentHashMap<>();
         BuiltInRegistries.ITEM.iterator().forEachRemaining(item -> {
             if (!item.components().has(ToolTiers.COMPONENT.get())) return;
-            items.put(BuiltInRegistries.ITEM.getKey(item), ToolTier.fromStack(item.getDefaultInstance()));
+            ToolTier tier = ToolTier.fromStack(item.getDefaultInstance());
+            if (required != null && !tier.equals(required)) return;
+            items.put(BuiltInRegistries.ITEM.getKey(item), tier);
         });
         
         if (TTCommands.dumpTiers(source, items, "items")) return;
@@ -171,7 +177,7 @@ public class TTCommands {
             Files.writeString(path, GSON.toJson(content));
             source.sendSuccess(() -> Component.literal("Written " + file + " entries").withStyle(ChatFormatting.GRAY), true);
             return false;
-        }  catch (IOException e) {
+        } catch (IOException e) {
             source.sendFailure(Component.literal(String.format("Failed to write entries at %s", path)).withStyle(ChatFormatting.RED));
         }
         
@@ -193,6 +199,12 @@ public class TTCommands {
             return null;
         }
         
-        return  directory;
+        return directory;
     }
+    
+    private static final SuggestionProvider<CommandSourceStack> TIER_SUGGESTER = (ctx, builder) -> {
+        List<String> tiers = DataHolder.all().stream().map(ToolTier::name).toList();
+        tiers.forEach(builder::suggest);
+        return builder.buildFuture();
+    };
 }

@@ -18,12 +18,12 @@ public class TTEvents {
     
     
     public static void dispatchItems() {
-        for (ToolTier tier : DataHolder.values()) {
+        for (ToolTier tier : DataHolder.all()) {
             if (TTEvents.tools.hasListeners(tier.name())) {
                 TTEvents.tools.post(new ItemTiersEvent(tier), tier.name());
                 ConsoleJS.STARTUP.log("Dispatching register for tool tier '" + tier.name() + "'");
             } else ConsoleJS.STARTUP.debug("Tool tier '" + tier.name() + "' has no listeners");
-        } 
+        }
     }
     
     public static void dispatchRegister() {

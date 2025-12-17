@@ -19,6 +19,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -30,9 +31,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Collections;
-import java.util.LinkedList;
 
 @Accessors(fluent = true)
 public class ToolTier implements Comparable<ToolTier> {
@@ -94,21 +92,33 @@ public class ToolTier implements Comparable<ToolTier> {
         if (state.is(VanillaToolTiers.INDESTRUCTIBLE.tag())) return VanillaToolTiers.INDESTRUCTIBLE;
         if (state.isAir() || !state.requiresCorrectToolForDrops()) return VanillaToolTiers.HAND;
         
-        LinkedList<ToolTier> tiers = new LinkedList<>(DataHolder.values());
-        Collections.sort(tiers);
-        Collections.reverse(tiers);
+        for (ToolTier unique : DataHolder.unique()) {
+            if (state.is(unique.tag())) return unique;
+        }
         
-        for (ToolTier tier : tiers) if (state.is(tier.tag())) return tier;
+        for (ToolTier tier : DataHolder.tiers()) {
+            if (state.is(tier.tag())) return tier;
+        }
+        
+        if (TTConfig.Common.isLenient() && (
+                state.is(BlockTags.MINEABLE_WITH_PICKAXE)
+                        || state.is(BlockTags.MINEABLE_WITH_AXE)
+                        || state.is(BlockTags.MINEABLE_WITH_SHOVEL)
+                        || state.is(BlockTags.MINEABLE_WITH_HOE)
+                        || state.is(BlockTags.SWORD_EFFICIENT)
+        )) {
+            return VanillaToolTiers.WOOD;
+        }
         
         return VanillaToolTiers.MISSING;
     }
-
+    
     public static boolean canBreak(ItemStack stack, BlockState state) {
         ToolTier block = ToolTier.fromState(state);
         if (block.equals(VanillaToolTiers.HAND)) return true;
         if (block.equals(VanillaToolTiers.INDESTRUCTIBLE)) return false;
         if (block.equals(VanillaToolTiers.MISSING)) return !TTConfig.Common.isForced();
-
+        
         ToolTier tool = ToolTier.fromStack(stack);
         if (tool.level() == -1) return tool.equals(block);
         

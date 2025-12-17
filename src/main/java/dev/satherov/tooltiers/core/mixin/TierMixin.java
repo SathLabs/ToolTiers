@@ -22,7 +22,7 @@ public interface TierMixin {
      * @reason The {@link Tier#getIncorrectBlocksForDrops()} collection is worthless for us
      */
     @Overwrite
-    default Tool createToolProperties(TagKey<Block> block) {
-        return new Tool(List.of(Tool.Rule.minesAndDrops(block, this.getSpeed())), 1.0F, 1);
+    default Tool createToolProperties(TagKey<Block> type) {
+        return new Tool(List.of(Tool.Rule.minesAndDrops(type, this.getSpeed())), 1.0F, 1);
     }
 }

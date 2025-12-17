@@ -22,7 +22,6 @@ public enum TTLanguage {
     TOOLTIP_TIER("tooltip", "tier", "Tier: %s"),
     TOOLTIP_MISSING_TIER("tooltip", "missing_tier", "No tier assigned. Report this to the pack author"),
     TIER_PLUGIN(String.format("config.jade.plugin_%s.%s", ToolTiers.MOD_ID, "tier"), "Tool Tier");
-    ;
     
     private final String key;
     private final String translation;
