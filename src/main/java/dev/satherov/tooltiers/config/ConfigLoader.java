@@ -48,21 +48,19 @@ public class ConfigLoader {
             }
         }
         
-        configs.forEach((type, list) -> {
-            list.forEach(clazz -> {
-                Cache cache = new Cache();
-                
-                ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
-                this.generate(clazz, cache, builder);
-                ModConfigSpec spec = builder.build();
-                
-                cache.setSpec(spec);
-                this.caches.add(cache);
-                
-                container.registerConfig(type, spec, ToolTiers.MOD_ID + "/" + ToolTiers.MOD_ID + "-" + type.extension() + ".toml");
-                ConfigLoader.log.info("Registered config of type {} for class {} at {}", type, clazz, ToolTiers.MOD_ID + "/" + ToolTiers.MOD_ID + "-" + type.extension() + ".toml");
-            });
-        });
+        configs.forEach((type, list) -> list.forEach(clazz -> {
+            Cache cache = new Cache();
+            
+            ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+            this.generate(clazz, cache, builder);
+            ModConfigSpec spec = builder.build();
+            
+            cache.setSpec(spec);
+            this.caches.add(cache);
+            
+            container.registerConfig(type, spec, ToolTiers.MOD_ID + "/" + ToolTiers.MOD_ID + "-" + type.extension() + ".toml");
+            ConfigLoader.log.info("Registered config of type {} for class {} at {}", type, clazz, ToolTiers.MOD_ID + "/" + ToolTiers.MOD_ID + "-" + type.extension() + ".toml");
+        }));
     }
     
     public void update(IConfigSpec spec) {
@@ -169,11 +167,9 @@ public class ConfigLoader {
     }
     
     public void translate(BiConsumer<String, String> consumer) {
-        this.caches.forEach(cache -> {
-            cache.values.forEach((key, value) -> {
-                String name = value.getPath().getLast();
-                consumer.accept(ToolTiers.MOD_ID + ".configuration." + name, name);
-            });
-        });
+        this.caches.forEach(cache -> cache.values.forEach((key, value) -> {
+            String name = value.getPath().getLast();
+            consumer.accept(ToolTiers.MOD_ID + ".configuration." + name, name);
+        }));
     }
 }

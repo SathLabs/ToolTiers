@@ -7,6 +7,7 @@ import dev.satherov.tooltiers.common.VanillaToolTiers;
 import dev.satherov.tooltiers.config.TTConfig;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;

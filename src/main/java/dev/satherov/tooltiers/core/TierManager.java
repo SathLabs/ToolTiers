@@ -14,12 +14,15 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @EventBusSubscriber(modid = ToolTiers.MOD_ID)
 public class TierManager {
     
     public static final ConcurrentHashMap<Item, ToolTier> TOOLS = new ConcurrentHashMap<>();
+    public static final List<Item> REMOVALS = new ArrayList<>();
     
     @SubscribeEvent
     private static void onModifyDefaultComponents(final ModifyDefaultComponentsEvent event) {
@@ -59,14 +62,23 @@ public class TierManager {
         TOOLS.put(Items.NETHERITE_PICKAXE, VanillaToolTiers.NETHERITE);
         TOOLS.put(Items.NETHERITE_SWORD, VanillaToolTiers.NETHERITE);
         
+        REMOVALS.add(Items.MACE);
+        REMOVALS.add(Items.TRIDENT);
+        REMOVALS.add(Items.SHEARS);
+        
         if (ModList.get().isLoaded("kubejs")) TTEvents.dispatchItems();
         
         event.getAllItems().forEach(item -> {
             ToolTier tier = TOOLS.getOrDefault(item, VanillaToolTiers.MISSING);
             if (tier.equals(VanillaToolTiers.MISSING) && !item.components().has(DataComponents.TOOL)) return;
-            event.modify(item, builder -> builder.set(ToolTiers.COMPONENT.get(), tier));
+            
+            event.modify(item, builder -> {
+                if (REMOVALS.contains(item)) return;
+                builder.set(ToolTiers.COMPONENT.get(), tier);
+            });
         });
         
         TOOLS.clear();
+        REMOVALS.clear();
     }
 }

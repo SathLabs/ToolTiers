@@ -13,7 +13,7 @@ import dev.latvian.mods.kubejs.typings.Info;
 import java.util.Collection;
 
 @Info("""
-        Allows you to register tool tier to specific items
+        Allows you to register tool tier to specific items. For removals the tier specified is irrelevant
         """)
 public record ItemTiersEvent(ToolTier tier) implements KubeEvent {
     
@@ -22,6 +22,13 @@ public record ItemTiersEvent(ToolTier tier) implements KubeEvent {
             """)
     public void add(Object... filters) {
         this.resolve(tier, filters);
+    }
+    
+    @Info("""
+            Remove a tier from an item. This takes priority over assignments
+            """)
+    public void remove(Object... filters) {
+        this.resolve(null, filters);
     }
     
     private void resolve(ToolTier tier, Object... filters) {
@@ -33,8 +40,13 @@ public record ItemTiersEvent(ToolTier tier) implements KubeEvent {
             } else {
                 String string = String.valueOf(filter).trim();
                 if (string.isEmpty()) return;
-                TierManager.TOOLS.put(BuiltInRegistries.ITEM.get(ResourceLocation.parse(string)), tier);
-                ConsoleJS.STARTUP.debug(String.format("Registered %s to tier %s", string, tier.name()));
+                if (tier == null) {
+                    TierManager.REMOVALS.add(BuiltInRegistries.ITEM.get(ResourceLocation.parse(string)));
+                    ConsoleJS.STARTUP.debug(String.format("Removed tier from %s", string));
+                } else {
+                    TierManager.TOOLS.put(BuiltInRegistries.ITEM.get(ResourceLocation.parse(string)), tier);
+                    ConsoleJS.STARTUP.debug(String.format("Registered %s to tier %s", string, tier.name()));
+                }
             }
         }
     }

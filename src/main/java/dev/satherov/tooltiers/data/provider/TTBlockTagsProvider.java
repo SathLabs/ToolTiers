@@ -50,11 +50,6 @@ public class TTBlockTagsProvider extends BlockTagsProvider {
                 .add(Blocks.COBWEB);
         
         this.tag(VanillaToolTiers.WOOD.tag())
-                .addTags(BlockTags.MINEABLE_WITH_PICKAXE)
-                .addTags(BlockTags.MINEABLE_WITH_AXE)
-                .addTags(BlockTags.MINEABLE_WITH_SHOVEL)
-                .addTags(BlockTags.MINEABLE_WITH_HOE)
-                .addTags(BlockTags.SWORD_EFFICIENT)
                 .addTags(BlockTags.STONE_BUTTONS)
                 .addTags(BlockTags.STONE_BRICKS)
                 .addTags(BlockTags.STONE_PRESSURE_PLATES)

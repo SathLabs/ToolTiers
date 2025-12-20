@@ -90,15 +90,21 @@ public class ToolTier implements Comparable<ToolTier> {
     
     public static ToolTier fromState(BlockState state) {
         if (state.is(VanillaToolTiers.INDESTRUCTIBLE.tag())) return VanillaToolTiers.INDESTRUCTIBLE;
-        if (state.isAir() || !state.requiresCorrectToolForDrops()) return VanillaToolTiers.HAND;
+        if (state.isAir()) return VanillaToolTiers.HAND;
+        
+        if (!TTConfig.Common.isOverwrite() && !state.requiresCorrectToolForDrops()) return VanillaToolTiers.HAND;
         
         for (ToolTier unique : DataHolder.unique()) {
             if (state.is(unique.tag())) return unique;
         }
         
         for (ToolTier tier : DataHolder.tiers()) {
-            if (state.is(tier.tag())) return tier;
+            if (state.is(tier.tag())) {
+                return tier;
+            }
         }
+        
+        if (TTConfig.Common.isOverwrite() && !state.requiresCorrectToolForDrops()) return VanillaToolTiers.HAND;
         
         if (TTConfig.Common.isLenient() && (
                 state.is(BlockTags.MINEABLE_WITH_PICKAXE)

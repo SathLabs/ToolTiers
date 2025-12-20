@@ -49,6 +49,12 @@ ToolTierEvents.tools('iron', event => {
    * Only the exact resource location works here as tags are not built yet.
    */
   event.add("example_mod:example_tool")
+
+  /**
+   * Remove the given tier assigment from the item. 
+   * The tier parameter specified does not matter here, any tier will be removed
+   */
+  event.remove("minecraft:wooden_sword")
 })
 ```
 

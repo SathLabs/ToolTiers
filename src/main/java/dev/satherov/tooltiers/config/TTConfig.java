@@ -50,5 +50,12 @@ public class TTConfig {
                 """)
         @ConfigVal.Boolean
         private static @Getter boolean lenient = true;
+        
+        @ConfigVal(name = "Tool Overwrite", comment = """
+                If a block is missing the "requiresCorrectToolForDrops" property and this is set to false, they will get assigned to the Hand tier.
+                If set to true we force the tier and ignore the missing requirement.
+                """)
+        @ConfigVal.Boolean
+        private static @Getter boolean overwrite = true;
     }
 }
