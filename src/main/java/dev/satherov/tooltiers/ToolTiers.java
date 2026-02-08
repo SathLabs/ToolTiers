@@ -86,7 +86,6 @@ public class ToolTiers {
         DataHolder.put(VanillaToolTiers.WOOD);
         DataHolder.put(VanillaToolTiers.STONE);
         DataHolder.put(VanillaToolTiers.IRON);
-        DataHolder.put(VanillaToolTiers.GOLD);
         DataHolder.put(VanillaToolTiers.DIAMOND);
         DataHolder.put(VanillaToolTiers.NETHERITE);
         if (ModList.get().isLoaded("kubejs")) TTEvents.dispatchRegister();

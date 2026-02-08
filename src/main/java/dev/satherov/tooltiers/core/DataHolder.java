@@ -35,7 +35,7 @@ public class DataHolder {
         if (FROZEN) return;
         
         List<ToolTier> all = new ArrayList<>(DATA.values());
-        all.sort(Comparator.naturalOrder());
+        all.sort(Comparator.comparingInt(ToolTier::level).thenComparing(ToolTier::name));
         
         List<ToolTier> unique = new ArrayList<>();
         List<ToolTier> numeric = new ArrayList<>();

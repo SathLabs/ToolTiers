@@ -1,5 +1,6 @@
 {
   "values": [
+    "#minecraft:incorrect_for_stone_tool",
     {
       "id": "#minecraft:needs_iron_tool",
       "required": false

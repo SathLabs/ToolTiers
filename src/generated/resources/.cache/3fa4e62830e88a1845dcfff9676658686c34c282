@@ -1,10 +1,9 @@
-// 1.21.1	2025-12-18T11:10:40.273002772	Stranded Core Data Provider
+// 1.21.1	2026-02-08T17:25:52.567460585	Stranded Core Data Provider
 905338f841db7cf4c70f2c9e1fe9e2847bd92d49 assets/tooltiers/lang/en_us.json
-af1e9dcb3ecb909bde41700ab3e478a302ea9b2e data/tooltiers/tags/block/requires/diamond.json
-765251cb4776940752d238d009e382c1f6ae7c6c data/tooltiers/tags/block/requires/gold.json
+7782c0d355fd2085261e57cdcf0a64ec8abae7dd data/tooltiers/tags/block/requires/diamond.json
 e7a8c631b3ba3bd9a98d2bb83f927b25fe348d37 data/tooltiers/tags/block/requires/hand.json
 83dc80c38c7677b192e607fc7b2ee490cbde18ac data/tooltiers/tags/block/requires/indestructible.json
-597e4bf953fb072389f85739e376f01fa7e935ee data/tooltiers/tags/block/requires/iron.json
-dae3ab0e57a621a1e53f767f7307bcfb1cb414b1 data/tooltiers/tags/block/requires/netherite.json
-b14b6a02c4ca16d25503781043e3f17d7a6a923f data/tooltiers/tags/block/requires/stone.json
+72b15f756bc42d2c79e3824ba71cbd7e3dc4717b data/tooltiers/tags/block/requires/iron.json
+16efbb084789e3ce23fe34c9ff49c2096483b5ed data/tooltiers/tags/block/requires/netherite.json
+5653a92d57148baae204f38b112811f291aee49d data/tooltiers/tags/block/requires/stone.json
 96948b0c881b1ae682e65823d6da4fbaefef664a data/tooltiers/tags/block/requires/wood.json

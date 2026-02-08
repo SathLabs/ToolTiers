@@ -32,6 +32,12 @@ public class TierManager {
         TOOLS.put(Items.WOODEN_PICKAXE, VanillaToolTiers.WOOD);
         TOOLS.put(Items.WOODEN_SWORD, VanillaToolTiers.WOOD);
         
+        TOOLS.put(Items.GOLDEN_HOE, VanillaToolTiers.WOOD);
+        TOOLS.put(Items.GOLDEN_SHOVEL, VanillaToolTiers.WOOD);
+        TOOLS.put(Items.GOLDEN_AXE, VanillaToolTiers.WOOD);
+        TOOLS.put(Items.GOLDEN_PICKAXE, VanillaToolTiers.WOOD);
+        TOOLS.put(Items.GOLDEN_SWORD, VanillaToolTiers.WOOD);
+        
         TOOLS.put(Items.STONE_HOE, VanillaToolTiers.STONE);
         TOOLS.put(Items.STONE_SHOVEL, VanillaToolTiers.STONE);
         TOOLS.put(Items.STONE_AXE, VanillaToolTiers.STONE);
@@ -43,12 +49,6 @@ public class TierManager {
         TOOLS.put(Items.IRON_AXE, VanillaToolTiers.IRON);
         TOOLS.put(Items.IRON_PICKAXE, VanillaToolTiers.IRON);
         TOOLS.put(Items.IRON_SWORD, VanillaToolTiers.IRON);
-        
-        TOOLS.put(Items.GOLDEN_HOE, VanillaToolTiers.GOLD);
-        TOOLS.put(Items.GOLDEN_SHOVEL, VanillaToolTiers.GOLD);
-        TOOLS.put(Items.GOLDEN_AXE, VanillaToolTiers.GOLD);
-        TOOLS.put(Items.GOLDEN_PICKAXE, VanillaToolTiers.GOLD);
-        TOOLS.put(Items.GOLDEN_SWORD, VanillaToolTiers.GOLD);
         
         TOOLS.put(Items.DIAMOND_HOE, VanillaToolTiers.DIAMOND);
         TOOLS.put(Items.DIAMOND_SHOVEL, VanillaToolTiers.DIAMOND);

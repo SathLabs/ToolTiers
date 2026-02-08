@@ -1,5 +1,6 @@
 {
   "values": [
+    "#minecraft:incorrect_for_wooden_tool",
     {
       "id": "#minecraft:needs_stone_tool",
       "required": false

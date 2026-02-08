@@ -64,22 +64,22 @@ public class TTBlockTagsProvider extends BlockTagsProvider {
         ;
         
         this.tag(VanillaToolTiers.STONE.tag())
+                .addTag(BlockTags.INCORRECT_FOR_WOODEN_TOOL)
                 .addOptionalTag(BlockTags.NEEDS_STONE_TOOL)
         ;
         
         this.tag(VanillaToolTiers.IRON.tag())
+                .addTag(BlockTags.INCORRECT_FOR_STONE_TOOL)
                 .addOptionalTag(BlockTags.NEEDS_IRON_TOOL)
         ;
         
-        this.tag(VanillaToolTiers.GOLD.tag())
-                .addOptionalTag(Tags.Blocks.NEEDS_GOLD_TOOL)
-        ;
-        
         this.tag(VanillaToolTiers.DIAMOND.tag())
+                .addTag(BlockTags.INCORRECT_FOR_IRON_TOOL)
                 .addOptionalTag(BlockTags.NEEDS_DIAMOND_TOOL)
         ;
         
         this.tag(VanillaToolTiers.NETHERITE.tag())
+                .addTag(BlockTags.INCORRECT_FOR_DIAMOND_TOOL)
                 .addOptionalTag(Tags.Blocks.NEEDS_NETHERITE_TOOL)
         ;
     }
