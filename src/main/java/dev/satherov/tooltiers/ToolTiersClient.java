@@ -37,8 +37,12 @@ public class ToolTiersClient {
         
         if (stack.getItem() instanceof BlockItem || stack.has(ToolTiers.COMPONENT)) {
             ToolTier tier = ToolTier.fromStack(stack);
-            if (tier.equals(VanillaToolTiers.MISSING) && TTConfig.Client.isWarning()) ToolTiersClient.insert(event.getToolTip(), TTLanguage.TOOLTIP_MISSING_TIER.text(ChatFormatting.RED));
-            else ToolTiersClient.insert(event.getToolTip(), tier.display());
+            if (tier.equals(VanillaToolTiers.MISSING)) {
+                if (TTConfig.Client.isWarning()) ToolTiersClient.insert(event.getToolTip(), TTLanguage.TOOLTIP_MISSING_TIER.text(ChatFormatting.RED));
+                return;
+            } 
+            
+            ToolTiersClient.insert(event.getToolTip(), tier.display());
         }
     }
     
